@@ -1,3 +1,4 @@
+<%@ page import="org.springframework.samples.travel.infrastructure.security.CountingService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
@@ -25,6 +26,10 @@
 				<security:authorize ifAllGranted="ROLE_USER">
 					<c:if test="${pageContext.request.userPrincipal != null}">
 						Welcome, <a href="<c:url value="/users/profile" />">${pageContext.request.userPrincipal.name}</a> |
+                        <security:authorize ifAllGranted="ROLE_SUPERVISOR">
+                            Login count : (successful: <%= CountingService.successfulConnections %> |
+                            failed: <%= CountingService.failedConnections%> ) |
+                        </security:authorize>
 					</c:if>
 					<a href="<c:url value="/users/logout" />">Logout</a>
                     |
