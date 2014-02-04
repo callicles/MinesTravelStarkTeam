@@ -22,6 +22,7 @@
 				<th>City, State</th>
 				<th>Check in Date</th>
 				<th>Check out Date</th>
+                <th>Amenities</th>
 				<th>Confirmation Number</th>
 				<th>Action</th>
 			</tr>
@@ -34,6 +35,13 @@
 				<td>${booking.hotel.city}, ${booking.hotel.state}</td>
 				<td>${booking.checkinDate}</td>
 				<td>${booking.checkoutDate}</td>
+                <td>
+                    <ul>
+                        <c:forEach var="amenity" items="${booking.amenities}">
+                            <li>${amenity.getName()}</li>
+                        </c:forEach>
+                    </ul>
+                </td>
 				<td>${booking.id}</td>
 				<td>
 					<spring:url var="bookingUrl" value="/bookings/{id}">
