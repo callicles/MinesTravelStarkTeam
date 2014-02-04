@@ -32,7 +32,11 @@ public class SearchHotelCriteria implements CriteriaToMongoQuery {
     @Override
     public Query toMongoQuery() {
         Criteria findHotelsCriteria = buildFindHotelsCriteria(searchCriteria);
-        return findHotelsCriteria == null ? new Query() : new Query(findHotelsCriteria);
+        Integer pageSize = searchCriteria.getPageSize();
+        Integer pageIndex = searchCriteria.getPage();
+        return findHotelsCriteria == null
+                ? new Query().limit(pageSize).skip(pageSize*pageIndex)
+                : new Query(findHotelsCriteria).limit(pageSize).skip(pageSize*pageIndex);
     }
 
     private Criteria buildFindHotelsCriteria(SearchCriteria searchCriteria) {
