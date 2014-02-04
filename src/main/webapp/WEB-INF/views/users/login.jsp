@@ -34,6 +34,11 @@
 						elementId : "j_username",
 						widgetType : "dijit.form.ValidationTextBox",
 						widgetAttrs : { promptMessage : "Your username", required : true }}));
+					Spring.addDecoration(new Spring.ElementDecoration({
+						elementId : "j_username",
+						widgetType : "dijit.form.ValidationTextBox",
+						widgetAttrs : { required : true, invalidMessage : "A minimum 2-digit login is required.", 
+							regExp : ".{2}(.*)"  }}));
 				</script>
 			</p>
 			<p>
