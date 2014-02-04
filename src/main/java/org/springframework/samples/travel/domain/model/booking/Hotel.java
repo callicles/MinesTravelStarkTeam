@@ -19,7 +19,19 @@ public class Hotel implements Serializable {
     private static final long serialVersionUID = 6688678236160248906L;
 
     public enum Amenity {
-        OCEAN_VIEW, LATE_CHECKOUT, MINIBAR
+        OCEAN_VIEW("Ocean View"),
+        LATE_CHECKOUT("Late Checkout"),
+        MINIBAR("Minibar");
+
+        private String name;
+
+        Amenity(String name){
+            this.name = name;
+        }
+
+        public String getName(){
+            return name;
+        }
     }
 
     @Id
