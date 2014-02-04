@@ -6,6 +6,8 @@
 /.project
 target/
 *.DS_Store
+*.iml
 /bin
 .metadata/
 .settings/
+
