@@ -9,6 +9,7 @@
         <c:otherwise>
             <ul>
                 <li><b>User name :</b>  ${pageContext.request.userPrincipal.name}</li>
+                <li><b>Name :</b> ${pageContext.request.userPrincipal.name}</li>
             </ul>
         </c:otherwise>
     </c:choose>
