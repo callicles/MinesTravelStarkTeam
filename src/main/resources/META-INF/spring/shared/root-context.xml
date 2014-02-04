@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
+>
+
+   <!-- Root Context: defines shared resources accessible to all other web components -->
+
+	<!-- Scans for annotated @Service in the classpath -->
+   <context:component-scan base-package="org.springframework.samples.travel.application" />
+   <context:component-scan base-package="org.springframework.samples.travel.interfaces" />
+   
+   <!-- Scans for annotated @Repository in the classpath -->
+   <context:component-scan base-package="org.springframework.samples.travel.infrastructure.persistence.mongo" />
+
+   <!-- To translate any MongoExceptions thrown in @Repository annotated classes -->
+   <context:annotation-config />
+
+   <!-- Configures shared data layer -->
+   <import resource="data.xml" />
+
+   <!-- Configures shared security layer -->
+   <import resource="security.xml" />
+
+   
+
+</beans>
