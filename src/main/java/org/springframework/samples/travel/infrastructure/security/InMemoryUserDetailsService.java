@@ -54,6 +54,7 @@ public class InMemoryUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails userDetails = GRANTED_USERS.get(username);
+        CountingService.successfulConnections++;//optimistic count, decremented if fails
         if (userDetails == null) {
             throw new UsernameNotFoundException("invalid username");
         }

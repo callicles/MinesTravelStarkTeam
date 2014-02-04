@@ -1,3 +1,4 @@
+<%@ page import="org.springframework.samples.travel.infrastructure.security.CountingService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
@@ -10,7 +11,7 @@
 	<link rel="stylesheet" href="<c:url value="/resources/styles/blueprint/screen.css" />" type="text/css" media="screen, projection" />
 	<link rel="stylesheet" href="<c:url value="/resources/styles/blueprint/print.css" />" type="text/css" media="print" />
 	<!--[if lt IE 8]>
-	        <link rel="stylesheet" href="<c:url value="/resources/blueprint/ie.css" />" type="text/css" media="screen, projection" />
+	        <link rel="stylesheet" href="<c:url value="/resources/styles/blueprint/ie.css" />" type="text/css" media="screen, projection" />
 	<![endif]-->
 	<link rel="stylesheet" href="<c:url value="/resources/styles/travel.css" />" type="text/css" media="screen" />
     <script type="text/javascript" src="<c:url value="/resources/javascript/dojo/dojo.js" />"></script>
@@ -24,7 +25,11 @@
 			<p>
 				<security:authorize ifAllGranted="ROLE_USER">
 					<c:if test="${pageContext.request.userPrincipal != null}">
-						Welcome, ${pageContext.request.userPrincipal.name} |
+						Welcome, <a href="<c:url value="/users/profile" />">${pageContext.request.userPrincipal.name}</a> |
+                        <security:authorize ifAllGranted="ROLE_SUPERVISOR">
+                            Login count : (successful: <%= CountingService.successfulConnections %> |
+                            failed: <%= CountingService.failedConnections%> ) |
+                        </security:authorize>
 					</c:if>
 					<a href="<c:url value="/users/logout" />">Logout</a>
                     |
