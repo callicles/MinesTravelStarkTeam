@@ -12,5 +12,9 @@
 	<definition name="users/logoutSuccess" extends="standardLayout">
 		<put-attribute name="body" value="/WEB-INF/views/users/logoutSuccess.jsp" />
 	</definition>
+
+    <definition name="users/signin" extends="standardLayout">
+        <put-attribute name="body" value="/WEB-INF/views/users/signin.jsp" />
+    </definition>
 	
 </tiles-definitions>
