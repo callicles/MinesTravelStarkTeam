@@ -11,13 +11,13 @@
 
 <div class="span-10">
     <c:url var="usersUrl" value="/users"/>
-    <form action="${usersUrl}" method="post">
+    <form:form action="${usersUrl}" method="post" modelAttribute="user">
         <fieldset>
-            <legend>Sign In :</legend>
+            <legend>Sign Up :</legend>
             <p>
                 <label for="username">User:</label>
                 <br />
-                <input id="username" path="username"/>
+                <form:input id="username" path="username"/>
                 <script type="text/javascript">
                     Spring.addDecoration(new Spring.ElementDecoration({
                         elementId : "username",
@@ -28,7 +28,7 @@
             <p>
                 <label for="password">Password:</label>
                 <br />
-                <password id="password" path="password"/>
+                <form:input type="password" id="password" path="password"/>
                 <script type="text/javascript">
                     Spring.addDecoration(new Spring.ElementDecoration({
                         elementId : "password",
@@ -39,7 +39,7 @@
             <p>
                 <label for="name">Name:</label>
                 <br />
-               <input id="name" path="name"/>
+               <form:input id="name" path="name"/>
                 <script type="text/javascript">
                     Spring.addDecoration(new Spring.ElementDecoration({
                         elementId : "name",
@@ -55,6 +55,6 @@
                 </script>
             </p>
         </fieldset>
-    </form>
+    </form:form>
 </div>
 
