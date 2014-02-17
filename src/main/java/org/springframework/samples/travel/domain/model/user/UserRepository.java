@@ -1,5 +1,7 @@
 package org.springframework.samples.travel.domain.model.user;
 
+import java.util.List;
+
 /**
  * Repository for {@linkplain User}
  */
@@ -14,4 +16,20 @@ public interface UserRepository {
      *         otherwise.
      */
     User findByUsername(String username);
+
+    /**
+     * Create a user from username password and Name
+     * @param username the usermane used to login
+     * @param password the password to login
+     * @param Name the name to be displayed
+     * @return the created user
+     */
+    User save(String username, String password, String Name) throws Exception;
+
+    /**
+     * Fetches all users in database
+     * @return the list of users
+     */
+    List<User> findUsers();
+
 }

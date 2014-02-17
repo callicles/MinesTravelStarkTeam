@@ -34,9 +34,12 @@
 					<a href="<c:url value="/users/logout" />">Logout</a>
                     |
                     <a href="<c:url value="/hotels/search" />">My Bookings</a>
+                    |
+                    <a href="<c:url value="/users/list" />">Users</a>
 				</security:authorize>
 				<security:authorize ifAllGranted="ROLE_ANONYMOUS">
 					<a href="<c:url value="/users/login" />">Login</a>
+                    <a href="<c:url value="/users/signup"/>">Sign up</a>
 				</security:authorize>
 			</p>
 		</div>
