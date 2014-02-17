@@ -2,10 +2,12 @@ package org.springframework.samples.travel.infrastructure.persistence.mongo.user
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
+import static org.springframework.samples.travel.infrastructure.persistence.mongo.booking.criteria.SearchHotelCriteria.newSearchHotelCriteria;
 
 import javax.inject.Inject;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.samples.travel.domain.model.user.User;
 import org.springframework.samples.travel.domain.model.user.UserRepository;
 import org.springframework.samples.travel.infrastructure.persistence.mongo.shared.AbstractMongoRepository;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.List;
 
 /**
  * Mongo implementation of {@linkplain UserRepository}
@@ -44,4 +47,8 @@ public class MongoUserRepository extends AbstractMongoRepository<User> implement
         return save(new User(username,password,name));
     }
 
+    @Override
+    public List<User> findUsers() {
+        return mongoTemplate.findAll(User.class);
+    }
 }

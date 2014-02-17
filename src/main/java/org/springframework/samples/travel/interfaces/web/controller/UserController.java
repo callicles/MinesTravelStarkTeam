@@ -36,4 +36,9 @@ public class UserController {
         userService.createUser(username,password,name);
         return "redirect:../hotels/search";
     }
+
+    @RequestMapping(value = "/users/list", method = RequestMethod.GET)
+    public void show(Model model) throws Exception{
+        model.addAttribute("usersList", userService.findUsers());
+    }
 }

@@ -2,6 +2,8 @@ package org.springframework.samples.travel.application;
 
 import org.springframework.samples.travel.domain.model.user.User;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Nicolas
@@ -18,6 +20,7 @@ public interface UserService {
      * @param name
      * @return created user
      */
-    public User createUser(String userName, String password, String name) throws Exception;
+    User createUser(String userName, String password, String name) throws Exception;
 
+    List<User> findUsers();
 }

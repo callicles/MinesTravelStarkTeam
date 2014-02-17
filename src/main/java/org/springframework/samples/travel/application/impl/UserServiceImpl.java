@@ -6,6 +6,7 @@ import org.springframework.samples.travel.domain.model.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,6 +28,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public User createUser(String userName, String password, String name) throws Exception{
-        return  userRepository.save(userName,password,name);
+        return  userRepository.save(userName, password, name);
+    }
+
+    public List<User> findUsers() {
+        return userRepository.findUsers();
     }
 }

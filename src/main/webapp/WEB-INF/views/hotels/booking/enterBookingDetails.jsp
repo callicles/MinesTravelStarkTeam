@@ -183,7 +183,7 @@
 				<div>
 					<p>
 					<button type="submit" id="proceed" name="_eventId_proceed">Proceed</button>
-					<button type="submit" name="_eventId_cancel" >Cancel</button>
+					<button type="submit" id="cancel" name="_eventId_cancel" >Cancel</button>
 					</p>
 					<script type="text/javascript">
 						Spring.addDecoration(new Spring.ValidateAllDecoration({elementId:'proceed', event:'onclick'}));

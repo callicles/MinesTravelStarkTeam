@@ -12,43 +12,42 @@ import org.springframework.util.StringUtils;
 /**
  * A backing bean for the main hotel search form. Encapsulates the criteria
  * needed to perform a hotel search.
- * 
+ *
  */
-public class SearchHotelCriteria implements CriteriaToMongoQuery {
+public class SearchUserCriteria implements CriteriaToMongoQuery {
 
     private static final String INSENSTIVE_CASE_REGEX = "i";
 
     private final SearchCriteria searchCriteria;
 
-    private SearchHotelCriteria(SearchCriteria searchCriteria) {
+    private SearchUserCriteria(SearchCriteria searchCriteria) {
         Assert.notNull(searchCriteria);
         this.searchCriteria = searchCriteria;
     }
 
-    public static SearchHotelCriteria newSearchHotelCriteria(SearchCriteria searchCriteria) {
-        return new SearchHotelCriteria(searchCriteria);
+    public static SearchUserCriteria newSearchHotelCriteria(SearchCriteria searchCriteria) {
+        return new SearchUserCriteria(searchCriteria);
     }
 
     @Override
     public Query toMongoQuery() {
-        Criteria findHotelsCriteria = buildFindHotelsCriteria(searchCriteria);
-        Integer pageSize = searchCriteria.getPageSize();
-        Integer pageIndex = searchCriteria.getPage();
-        return findHotelsCriteria == null
-                ? new Query().limit(pageSize).skip(pageSize*pageIndex)
-                : new Query(findHotelsCriteria).limit(pageSize).skip(pageSize*pageIndex);
+        Criteria findUsersCriteria = buildFindUsersCriteria(searchCriteria);
+        /*String name = searchCriteria.;
+        Integer pageIndex = searchCriteria.getPage();*/
+        return findUsersCriteria == null
+                ? new Query()
+                : new Query(findUsersCriteria);
     }
 
-    private Criteria buildFindHotelsCriteria(SearchCriteria searchCriteria) {
+    private Criteria buildFindUsersCriteria(SearchCriteria searchCriteria) {
         String pattern = getSearchPattern(searchCriteria);
         if (pattern == null) {
             return null;
         }
         Criteria nameCriteria = where("name").regex(pattern, INSENSTIVE_CASE_REGEX);
-        Criteria cityCriteria = where("city").regex(pattern, INSENSTIVE_CASE_REGEX);
-        Criteria zipCriteria = where("zip").regex(pattern, INSENSTIVE_CASE_REGEX);
-        Criteria addressCriteria = where("address").regex(pattern, INSENSTIVE_CASE_REGEX);
-        return new Criteria().orOperator(nameCriteria, cityCriteria, zipCriteria, addressCriteria);
+        Criteria userNameCriteria = where("userName").regex(pattern, INSENSTIVE_CASE_REGEX);
+        //Criteria roleCriteria = where("roles").regex(pattern, INSENSTIVE_CASE_REGEX);
+        return new Criteria().orOperator(nameCriteria, userNameCriteria);
     }
 
     private String getSearchPattern(SearchCriteria searchCriteria) {
