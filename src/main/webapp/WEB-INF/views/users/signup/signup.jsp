@@ -11,7 +11,7 @@
 
 <div class="span-10">
     <c:url var="usersUrl" value="/users"/>
-    <form:form action="${usersUrl}" method="post" modelAttribute="user">
+    <form:form  method="post" modelAttribute="user">
         <fieldset>
             <legend>Sign Up :</legend>
             <p>

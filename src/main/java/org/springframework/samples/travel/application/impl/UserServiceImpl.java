@@ -29,4 +29,14 @@ public class UserServiceImpl implements UserService {
     public User createUser(String userName, String password, String name) throws Exception{
         return  userRepository.save(userName,password,name);
     }
+
+    @Override
+    public User createUser() throws Exception {
+        return new User();
+    }
+
+    @Override
+    public User saveUser(User user) throws Exception {
+        return createUser(user.getUsername(),user.getPassword(),user.getName());
+    }
 }

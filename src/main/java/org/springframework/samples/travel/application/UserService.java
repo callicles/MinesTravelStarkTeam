@@ -19,5 +19,6 @@ public interface UserService {
      * @return created user
      */
     public User createUser(String userName, String password, String name) throws Exception;
-
+    public User createUser() throws Exception;
+    public User saveUser(User user) throws Exception;
 }

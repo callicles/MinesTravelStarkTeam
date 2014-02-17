@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <persistence-context/>
+
+    <on-start>
+        <evaluate expression="userService.createUser()" result="flowScope.user" />
+    </on-start>
+
+    <view-state id="signup" model="user">
+        <binder>
+            <binding property="name" required="true" />
+            <binding property="username" required="true" />
+            <binding property="password" required="true" />
+        </binder>
+        <transition on="proceed" to="addUser" />
+        <transition on="cancel" to="cancel" bind="false" />
+    </view-state>
+
+    <end-state id="addUser" commit="true" >
+        <on-entry>
+            <evaluate expression="userService.saveUser(flowScope.user)" result="flowScope.user" />
+        </on-entry>
+    </end-state>
+
+    <end-state id="cancel" />
+
+</flow>
