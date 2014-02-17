@@ -10,7 +10,7 @@ import org.springframework.webflow.mvc.servlet.AbstractFlowHandler;
 
 public class SignupFlowHandler extends AbstractFlowHandler {
 
-    private static final String REDIRECT_URL = "contextRelative:/users/signin";
+    private static final String REDIRECT_URL = "contextRelative:/users/login";
 
     @Override
     public String handleExecutionOutcome(FlowExecutionOutcome outcome, HttpServletRequest request,

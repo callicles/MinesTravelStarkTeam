@@ -32,7 +32,7 @@
 				</security:authorize>
 				<security:authorize ifAllGranted="ROLE_ANONYMOUS">
 					<a href="<c:url value="/users/login" />">Login</a>
-                    <a href="<c:url value="/users/signup"/>">Sign In</a>
+                    <a href="<c:url value="/users/signup"/>">Sign up</a>
 				</security:authorize>
 			</p>
 		</div>

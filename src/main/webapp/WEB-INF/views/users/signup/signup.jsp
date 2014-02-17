@@ -49,7 +49,7 @@
             </p>
 
             <p>
-                <button id="submit" type="submit">Sign In</button>
+                <button id="proceed" name="_eventId_proceed" type="submit">Sign In</button>
                 <script type="text/javascript">
                     Spring.addDecoration(new Spring.ValidateAllDecoration({event : 'onclick', elementId : 'submit'}));
                 </script>
