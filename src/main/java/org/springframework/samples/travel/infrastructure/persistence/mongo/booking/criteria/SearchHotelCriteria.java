@@ -48,7 +48,8 @@ public class SearchHotelCriteria implements CriteriaToMongoQuery {
         Criteria cityCriteria = where("city").regex(pattern, INSENSTIVE_CASE_REGEX);
         Criteria zipCriteria = where("zip").regex(pattern, INSENSTIVE_CASE_REGEX);
         Criteria addressCriteria = where("address").regex(pattern, INSENSTIVE_CASE_REGEX);
-        return new Criteria().orOperator(nameCriteria, cityCriteria, zipCriteria, addressCriteria);
+        Criteria countryCriteria = where("country").regex(pattern,INSENSTIVE_CASE_REGEX);
+        return new Criteria().orOperator(nameCriteria, cityCriteria, zipCriteria, addressCriteria, countryCriteria);
     }
 
     private String getSearchPattern(SearchCriteria searchCriteria) {

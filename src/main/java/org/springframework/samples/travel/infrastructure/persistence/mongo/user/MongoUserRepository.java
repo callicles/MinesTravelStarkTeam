@@ -45,7 +45,6 @@ public class MongoUserRepository extends AbstractMongoRepository<User> implement
 
     @Override
     public User save(String username, String password, String name) throws Exception{
-        System.out.println("Yo yo yo");
         MessageDigest messageDigest = MessageDigest.getInstance("md5");
         messageDigest.update(password.getBytes(),0, password.length());
         String hashedPass = new BigInteger(1,messageDigest.digest()).toString(16);
