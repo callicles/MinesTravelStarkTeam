@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import javax.inject.Inject;
+
 /**
  * <p>
  * This class implements a in memory {@linkplain UserDetailsService}. Users are
