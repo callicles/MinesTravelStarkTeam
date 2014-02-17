@@ -4,7 +4,10 @@
 
 <h1>Hotel Results</h1>
 <p>
-	<a id="changeSearchLink" href="hotels/search?searchString=${searchCriteria.searchString}&pageSize=${searchCriteria.pageSize}">Change Search</a>
+	<a id="changeSearchLink"
+       href="hotels/search?searchString=${searchCriteria.searchString}&pageSize=${searchCriteria.pageSize}">
+        Change Search
+    </a>
 	<script type="text/javascript">
 		Spring.addDecoration(new Spring.AjaxEventDecoration({
 			elementId: "changeSearchLink",
@@ -45,11 +48,26 @@
 	</table>
 	<div class="buttonGroup">
 		<div class="span-3">
-			<!-- previous link to implement -->
+            <c:if test="${not empty hotelList && searchCriteria.page != 0}">
+                <a id="moreResultsLink"
+                   href="hotels?searchString=${searchCriteria.searchString}&pageSize=${searchCriteria.pageSize}&page=${searchCriteria.page - 1}">
+                    Previous page
+                </a>
+                <script type="text/javascript">
+                    Spring.addDecoration(new Spring.AjaxEventDecoration({
+                        elementId: "moreResultsLink",
+                        event: "onclick",
+                        params: {fragments: "body"}
+                    }));
+                </script>
+            </c:if>
 		</div>
 		<div class="span-3 append-12 last">
 			<c:if test="${not empty hotelList && fn:length(hotelList) == searchCriteria.pageSize}">
-				<a id="moreResultsLink" href="hotels?searchString=${searchCriteria.searchString}&pageSize=${searchCriteria.pageSize}&page=${searchCriteria.page + 1}">More Results</a>
+				<a id="moreResultsLink"
+                   href="hotels?searchString=${searchCriteria.searchString}&pageSize=${searchCriteria.pageSize}&page=${searchCriteria.page + 1}">
+                    Next page
+                </a>
 				<script type="text/javascript">
 					Spring.addDecoration(new Spring.AjaxEventDecoration({
 						elementId: "moreResultsLink",

@@ -4,6 +4,8 @@
 
 <%@ page import="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter" %>
 <%@ page import="org.springframework.security.core.AuthenticationException" %>
+<%@ page import="org.springframework.samples.travel.infrastructure.security.InMemoryUserDetailsService" %>
+<%@ page import="org.springframework.samples.travel.infrastructure.security.CountingService" %>
 
 <div class="span-5">
 	<p>Valid username/passwords are:</p>
@@ -17,7 +19,10 @@
 
 <div class="span-10 append-2 last">
 	<c:if test="${not empty param.login_error}">
-		<div class="error">
+        <% CountingService.successfulConnections--;//remove optimistic count
+           CountingService.failedConnections++;
+        %>
+        <div class="error">
 			Your login attempt was not successful, try again.<br /><br />
 			Reason: <%= ((AuthenticationException) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION)).getMessage() %>
 		</div>
@@ -34,6 +39,11 @@
 						elementId : "j_username",
 						widgetType : "dijit.form.ValidationTextBox",
 						widgetAttrs : { promptMessage : "Your username", required : true }}));
+					Spring.addDecoration(new Spring.ElementDecoration({
+						elementId : "j_username",
+						widgetType : "dijit.form.ValidationTextBox",
+						widgetAttrs : { required : true, invalidMessage : "A minimum 2-digit login is required.", 
+							regExp : ".{2}(.*)"  }}));
 				</script>
 			</p>
 			<p>
