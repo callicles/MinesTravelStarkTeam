@@ -1,0 +1,624 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Contacts API",
+    "description" : "An API for keeping track of your contacts and the companies they work for. \n",
+    "termsOfService" : "",
+    "contact" : { },
+    "version" : "1.2.0"
+  },
+  "paths" : {
+    "/companies/" : {
+      "get" : {
+        "tags" : [ "Companies" ],
+        "summary" : "Load the list of Companies",
+        "description" : "Loads a list of Company",
+        "parameters" : [ {
+          "name" : "$size",
+          "in" : "query",
+          "description" : "Size of the page to retrieve.",
+          "schema" : {
+            "type" : "integer",
+            "description" : "Size of the page to retrieve."
+          },
+          "example" : 10
+        }, {
+          "name" : "$page",
+          "in" : "query",
+          "description" : "Number of the page to retrieve.",
+          "schema" : {
+            "type" : "number",
+            "description" : "Number of the page to retrieve."
+          },
+          "example" : 1
+        }, {
+          "name" : "$sort",
+          "in" : "query",
+          "description" : "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+          "schema" : {
+            "type" : "string",
+            "description" : "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC"
+          },
+          "example" : "name ASC"
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "Allows to filter the collections of result by the value of field name",
+          "schema" : {
+            "type" : "string",
+            "description" : "Allows to filter the collections of result by the value of field name"
+          },
+          "example" : "George Street Brewery"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "headers" : {
+              "X-Page-Count" : {
+                "schema" : {
+                  "type" : "integer"
+                },
+                "example" : 1
+              },
+              "X-Page-Number" : {
+                "schema" : {
+                  "type" : "integer"
+                },
+                "example" : 1
+              },
+              "X-Page-Size" : {
+                "schema" : {
+                  "type" : "integer"
+                },
+                "example" : 25
+              },
+              "X-Total-Count" : {
+                "schema" : {
+                  "type" : "integer"
+                },
+                "example" : 2
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Company"
+                  }
+                },
+                "example" : "[{\n  \"id\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\",\n  \"name\": \"George Street Brewery\",\n  \"address\":{\n    \"street\": \"2 place de la Defense\",\n    \"zipcode\": \"92053\",\n    \"city\": \"Paris\"\n  },\n  \"tags\":[\n    \"brewery\",\n    \"beer\",\n    \"ale\"\n  ]\n}]"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Companies" ],
+        "summary" : "Create a new Company",
+        "description" : "Adds a Company",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Company"
+              },
+              "example" : "{\n  \"name\": \"George Street Brewery\",\n  \"address\":{\n    \"street\": \"2 place de la Defense\",\n    \"zipcode\": \"92053\",\n    \"city\": \"Paris\"\n  },\n  \"tags\":[\n    \"brewery\",\n    \"beer\",\n    \"ale\"\n  ]\n}"
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Company"
+                },
+                "example" : "{\n  \"id\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\",\n  \"name\": \"George Street Brewery\",\n  \"address\":{\n    \"street\": \"2 place de la Defense\",\n    \"zipcode\": \"92053\",\n    \"city\": \"Paris\"\n  },\n  \"tags\":[\n    \"brewery\",\n    \"beer\",\n    \"ale\"\n  ]\n}"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "HTTP_BASIC" : [ ]
+        } ]
+      },
+      "x-talend" : {
+        "section" : "Companies"
+      }
+    },
+    "/companies/{companyid}" : {
+      "get" : {
+        "tags" : [ "Companies" ],
+        "summary" : "Load an individual Company",
+        "description" : "Loads a Company",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Company"
+                },
+                "example" : "{\n  \"id\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\",\n  \"name\": \"George Street Brewery\",\n  \"address\":{\n    \"street\": \"2 place de la Defense\",\n    \"zipcode\": \"92053\",\n    \"city\": \"Paris\"\n  },\n  \"tags\":[\n    \"brewery\",\n    \"beer\",\n    \"ale\"\n  ]\n}"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Companies" ],
+        "summary" : "Update a Company",
+        "description" : "Stores a Company",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Company"
+              },
+              "example" : "{\n  \"name\": \"George Street Brewery\",\n  \"address\":{\n    \"street\": \"2 place de la Defense\",\n    \"zipcode\": \"92053\",\n    \"city\": \"Paris\"\n  },\n  \"tags\":[\n    \"brewery\",\n    \"beer\",\n    \"ale\"\n  ]\n}"
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Company"
+                },
+                "example" : "{\n  \"id\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\",\n  \"name\": \"George Street Brewery\",\n  \"address\":{\n    \"street\": \"2 place de la Defense\",\n    \"zipcode\": \"92053\",\n    \"city\": \"Paris\"\n  },\n  \"tags\":[\n    \"brewery\",\n    \"beer\",\n    \"ale\"\n  ]\n}"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "HTTP_BASIC" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Companies" ],
+        "summary" : "Delete a Company",
+        "description" : "Deletes a Company",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        },
+        "security" : [ {
+          "HTTP_BASIC" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "companyid",
+        "in" : "path",
+        "required" : true,
+        "description" : "Identifier of the Company",
+        "schema" : {
+          "type" : "string",
+          "description" : "Identifier of the Company"
+        },
+        "example" : "0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f"
+      } ],
+      "x-talend" : {
+        "section" : "Companies"
+      }
+    },
+    "/contacts/" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Get the list of Contacts",
+        "description" : "Loads a list of Contact",
+        "parameters" : [ {
+          "name" : "$size",
+          "in" : "query",
+          "description" : "Size of the page to retrieve.",
+          "schema" : {
+            "type" : "integer",
+            "description" : "Size of the page to retrieve."
+          },
+          "example" : 10
+        }, {
+          "name" : "$page",
+          "in" : "query",
+          "description" : "Number of the page to retrieve.",
+          "schema" : {
+            "type" : "integer",
+            "description" : "Number of the page to retrieve."
+          },
+          "example" : 1
+        }, {
+          "name" : "$sort",
+          "in" : "query",
+          "description" : "Order in which to retrieve the results. Multiple sort criteria can be passed.",
+          "schema" : {
+            "type" : "string",
+            "description" : "Order in which to retrieve the results. Multiple sort criteria can be passed."
+          },
+          "example" : "birthday DESC"
+        }, {
+          "name" : "firstName",
+          "in" : "query",
+          "description" : "Allows to filter the collections of result by the value of field firstName",
+          "schema" : {
+            "type" : "string",
+            "description" : "Allows to filter the collections of result by the value of field firstName"
+          },
+          "example" : "John"
+        }, {
+          "name" : "lastName",
+          "in" : "query",
+          "description" : "Allows to filter the collections of result by the value of field lastName",
+          "schema" : {
+            "type" : "string",
+            "description" : "Allows to filter the collections of result by the value of field lastName"
+          },
+          "example" : "Doe"
+        }, {
+          "name" : "active",
+          "in" : "query",
+          "description" : "Allows to filter the collections of result by the value of field active",
+          "schema" : {
+            "type" : "boolean",
+            "description" : "Allows to filter the collections of result by the value of field active"
+          },
+          "example" : true
+        }, {
+          "name" : "company",
+          "in" : "query",
+          "description" : "Allows to filter the collections of result by the value of field company",
+          "schema" : {
+            "type" : "string",
+            "description" : "Allows to filter the collections of result by the value of field company"
+          },
+          "example" : "0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f"
+        }, {
+          "name" : "lastName",
+          "in" : "header",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "headers" : {
+              "X-Page-Count" : {
+                "schema" : {
+                  "type" : "integer"
+                },
+                "example" : 1
+              },
+              "X-Page-Number" : {
+                "schema" : {
+                  "type" : "integer"
+                },
+                "example" : 1
+              },
+              "X-Page-Size" : {
+                "schema" : {
+                  "type" : "integer"
+                },
+                "example" : 25
+              },
+              "X-Total-Count" : {
+                "schema" : {
+                  "type" : "integer"
+                },
+                "example" : 2
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Contact"
+                  }
+                },
+                "example" : "[{\n  \"id\": \"0e8dd830-ad98-11e6-bf2e-47644ada7c0f\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"birthday\": 152755200000,\n  \"active\": true,\n  \"rank\": 1,\n  \"company\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\"\n}]"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Create a Contact",
+        "description" : "Adds a Contact",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Contact"
+              },
+              "example" : "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"birthday\": 152755200000,\n  \"active\": true,\n  \"rank\": 1,\n  \"company\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\"\n}"
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Contact"
+                },
+                "example" : "{\n  \"id\": \"0e8dd830-ad98-11e6-bf2e-47644ada7c0f\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"birthday\": 152755200000,\n  \"active\": true,\n  \"rank\": 1,\n  \"company\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\"\n}"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "HTTP_BASIC" : [ ]
+        } ]
+      },
+      "x-talend" : {
+        "section" : "Contacts"
+      }
+    },
+    "/contacts/{contactid}" : {
+      "get" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Load an individual Contact",
+        "description" : "Loads a Contact",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Contact"
+                },
+                "example" : "{\n  \"id\": \"0e8dd830-ad98-11e6-bf2e-47644ada7c0f\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"birthday\": 152755200000,\n  \"active\": true,\n  \"rank\": 1,\n  \"company\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\"\n}"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Status 400",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Update a Contact",
+        "description" : "Stores a Contact",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Contact"
+              },
+              "example" : "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"birthday\": 152755200000,\n  \"active\": true,\n  \"rank\": 1,\n  \"company\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\"\n}"
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Contact"
+                },
+                "example" : "{\n  \"id\": \"0e8dd830-ad98-11e6-bf2e-47644ada7c0f\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"birthday\": 152755200000,\n  \"active\": true,\n  \"rank\": 1,\n  \"company\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\"\n}"
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "HTTP_BASIC" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Contacts" ],
+        "summary" : "Delete a Contact",
+        "description" : "Deletes a Contact",
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        },
+        "security" : [ {
+          "HTTP_BASIC" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "contactid",
+        "in" : "path",
+        "required" : true,
+        "description" : "Identifier of the Contact",
+        "schema" : {
+          "type" : "string",
+          "description" : "Identifier of the Contact"
+        },
+        "example" : "0e8dd830-ad98-11e6-bf2e-47644ada7c0f"
+      } ],
+      "x-talend" : {
+        "section" : "Contacts"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Company" : {
+        "type" : "object",
+        "required" : [ "address", "id", "name" ],
+        "description" : "A representation of a Company.",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Auto-generated primary key field"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "tags" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "pattern" : "[a-zA-Z]+"
+            },
+            "example" : "[\"brewery\", \"beer\", \"ale\"]"
+          },
+          "address" : {
+            "type" : "object",
+            "required" : [ "city", "street", "zipcode" ],
+            "properties" : {
+              "street" : {
+                "type" : "string"
+              },
+              "city" : {
+                "type" : "string"
+              },
+              "zipcode" : {
+                "type" : "string",
+                "pattern" : "[0-9]*"
+              }
+            }
+          }
+        },
+        "example" : "{\n  \"id\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\",\n  \"name\": \"George Street Brewery\",\n  \"address\":{\n    \"street\": \"2 place de la Defense\",\n    \"zipcode\": \"92053\",\n    \"city\": \"Paris\"\n  },\n  \"tags\":[\n    \"brewery\",\n    \"beer\",\n    \"ale\"\n  ]\n}",
+        "x-talend" : {
+          "section" : "Companies"
+        }
+      },
+      "Contact" : {
+        "type" : "object",
+        "required" : [ "firstName", "id", "lastName" ],
+        "description" : "A representation of a Contact.",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Auto-generated primary key field",
+            "example" : "0e8ffb10-ad98-11e6-bf2e-47644ada7c0f"
+          },
+          "firstName" : {
+            "type" : "string",
+            "example" : "Kurt"
+          },
+          "lastName" : {
+            "type" : "string",
+            "example" : "Williams"
+          },
+          "birthday" : {
+            "type" : "integer",
+            "format" : "int64",
+            "description" : "Birthday as unix timestamp (in ms)",
+            "example" : 173664000000
+          },
+          "active" : {
+            "type" : "boolean",
+            "default" : true
+          },
+          "rank" : {
+            "type" : "integer",
+            "format" : "int32",
+            "minimum" : 1,
+            "example" : 1
+          },
+          "company" : {
+            "type" : "string",
+            "description" : "This property is a reference to a Company",
+            "example" : "0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f"
+          }
+        },
+        "example" : "{\n  \"id\": \"0e8dd830-ad98-11e6-bf2e-47644ada7c0f\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"birthday\": 152755200000,\n  \"active\": true,\n  \"rank\": 1,\n  \"company\": \"0e8cedd0-ad98-11e6-bf2e-47644ada7c0f\"\n}",
+        "x-talend" : {
+          "section" : "Contacts"
+        }
+      },
+      "Error" : {
+        "type" : "object",
+        "required" : [ "code" ],
+        "description" : "This general error structure is used throughout this API.",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "minimum" : 400,
+            "maximum" : 599
+          },
+          "description" : {
+            "type" : "string",
+            "example" : "Bad query parameter [$size]: Invalid integer value [abc]"
+          },
+          "reasonPhrase" : {
+            "type" : "string",
+            "example" : "Bad Request"
+          }
+        },
+        "example" : "{\n  \"code\": 400,\n  \"description\": \"Bad query parameter [$size]: Invalid integer value [abc]\",\n  \"reasonPhrase\": \"Bad Request\"\n}",
+        "x-talend" : {
+          "section" : "General"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "HTTP_BASIC" : {
+        "type" : "http",
+        "scheme" : "basic",
+        "description" : "All GET methods are public, meaning that *you can read all the data*. Write operations require authentication and therefore are forbidden to the general public."
+      }
+    }
+  },
+  "x-talend" : {
+    "sections" : {
+      "General" : { },
+      "Contacts" : {
+        "description" : ""
+      },
+      "Companies" : { }
+    },
+    "texts" : {
+      "6cef9308-7012-47e8-8a65-9ce80d8a4c67" : {
+        "title" : "Authentication",
+        "content" : "This API is secured using Basic Authentication.\n\nAll **read operations are open** and don't require authentication. However, all **write operations require authentication**. ",
+        "section" : "General"
+      },
+      "406e55f0-df8d-4142-9d51-0be1f620a68b" : {
+        "title" : "Error handling",
+        "content" : "This API uses standard HTTP status codes to indicate the status of a response.\n\nThere are two main categories of error responses. Each have a different response payload structure.\n\n* Simple errors\n* Detailed errors\n\n\n# Simple errors\n\n| Name | Code | Description |\n| -------- | -------- | -------- |\n| Bad request     | 400     | The request was unacceptable     |\n| Unauthorized     | 401     | The request has not been applied because it lacks valid authentication credentials for the target resource.     |\n| Forbidden     | 403     | The server understood the request, but is refusing to fulfill it     |\n| Not Found     | 404     | The server has not found anything matching the request URI     |\n| Not acceptable     | 406     | The server is unable to return a response in the format that was requested by the client     |\n| Unsupported Media Type     | 415     | The server is refusing to service the request because the entity of the request is in a format not supported by the requested resource for the requested method     |\n| Too many requests     | 429     | Too many requests hit the API too quickly     |\n| Server error     | 500     | A technical error occured  |\n\n\n\n\n\n\n# Detailed errors\n| Name | Code | Description |\n| -------- | -------- | -------- |\n| Unprocessable entity     | 422     | The server understands the content type of the request entity, and the syntax of the request entity is correct, but was unable to process the contained instructions.     |\n\n\n\n\n",
+        "section" : "General"
+      }
+    }
+  }
+}
